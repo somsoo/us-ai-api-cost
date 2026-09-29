@@ -1,308 +1,449 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="/favicon.ico">
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="robots" content="noindex, nofollow">
-    <title>AI API Token Cost Calculator | OpenAI, Claude, Gemini</title>
-    <meta name="description" content="Calculate and compare estimated API costs across GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro based on prompt and completion token usage.">
-    <link rel="canonical" href="https://us-ai-api-cost.enjoy-onepage.com/">
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="AI API Token Cost Calculator | OpenAI, Claude, Gemini">
-    <meta property="og:description" content="Calculate and compare estimated API costs across GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro based on prompt and completion token usage.">
-    <meta property="og:url" content="https://us-ai-api-cost.enjoy-onepage.com/">
-    <meta property="og:site_name" content="AI Model API Cost Calculator">
-    <meta property="og:image" content="https://us-ai-api-cost.enjoy-onepage.com/og-image.png">
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="AI API Token Cost Calculator | OpenAI, Claude, Gemini">
-    <meta name="twitter:description" content="Calculate and compare estimated API costs across GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro based on prompt and completion token usage.">
-    <meta name="twitter:image" content="https://us-ai-api-cost.enjoy-onepage.com/og-image.png">
-
-    <!-- Schema.org WebApplication -->
-    <script type="application/ld+json">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI API Cost Calculator | Estimate Token Costs by Model</title>
+<meta name="description" content="Estimate what an AI API costs per request, day, month and year. Compare current per-token prices for 12 models, with batch discounts and long prompts.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://us-ai-api-cost.enjoy-onepage.com/">
+<meta name="theme-color" content="#1d4ed8">
+<link rel="icon" href="/favicon.ico">
+<meta property="og:locale" content="en_US">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="AI API Cost Calculator">
+<meta property="og:title" content="AI API Cost Calculator | Estimate Token Costs by Model">
+<meta property="og:description" content="Estimate what an AI API costs per request, day, month and year. Compare current per-token prices for 12 models, with batch discounts and long prompts.">
+<meta property="og:url" content="https://us-ai-api-cost.enjoy-onepage.com/">
+<meta property="og:image" content="https://us-ai-api-cost.enjoy-onepage.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI API Cost Calculator | Estimate Token Costs by Model">
+<meta name="twitter:description" content="Estimate what an AI API costs per request, day, month and year. Compare current per-token prices for 12 models, with batch discounts and long prompts.">
+<meta name="twitter:image" content="https://us-ai-api-cost.enjoy-onepage.com/og-image.png">
+<link rel="alternate" type="application/rss+xml" title="AI API Cost Calculator RSS" href="https://us-ai-api-cost.enjoy-onepage.com/rss.xml">
+<link rel="sitemap" type="application/xml" href="https://us-ai-api-cost.enjoy-onepage.com/sitemap.xml">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "AI Model API Cost Calculator",
+      "@id": "https://us-ai-api-cost.enjoy-onepage.com/#webapp",
+      "name": "AI API Cost Calculator",
       "url": "https://us-ai-api-cost.enjoy-onepage.com/",
-      "description": "Calculate and compare estimated API costs across GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro based on prompt and completion token usage.",
-      "applicationCategory": "DeveloperApplication",
+      "applicationCategory": "BusinessApplication",
       "operatingSystem": "All",
-      "inLanguage": "en-US",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
+      "inLanguage": "en",
+      "description": "A free calculator for AI API token costs. Enter input and output tokens per request and requests per day to see the cost per request, day, month and year, and compare 12 models using prices checked on each provider's official pricing page.",
+      "image": "https://us-ai-api-cost.enjoy-onepage.com/og-image.png",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://us-ai-api-cost.enjoy-onepage.com/#faq",
+      "mainEntity": [
+        { "@type": "Question", "name": "How is the cost calculated?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Cost per request equals input tokens divided by 1,000,000 times the input price, plus output tokens divided by 1,000,000 times the output price. The daily cost is that times your requests per day, the monthly cost is the daily cost times your days per month, and the yearly cost is 12 months. Batch halves both prices." } },
+        { "@type": "Question", "name": "How current are the prices?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The built-in prices were checked on each provider's official pricing page on September 30, 2026, using standard pay-as-you-go rates in US dollars. Prices change often, so confirm them before you budget, or enter your own prices with Custom prices." } },
+        { "@type": "Question", "name": "How many tokens is my text?",
+          "acceptedAnswer": { "@type": "Answer", "text": "A common rule of thumb for English is about 4 characters or 0.75 words per token. Paste sample text into the estimator to apply that rule. Each model family counts tokens differently; Anthropic notes that Claude 4.7 and later models produce about 30% more tokens for the same text." } },
+        { "@type": "Question", "name": "What are long-context prices?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Some models charge more when a single request has a very long input. The GPT-6 models listed here use higher prices above 272,000 input tokens, and Gemini 3.1 Pro Preview above 200,000. The calculator switches to those prices when your input tokens per request pass the limit." } },
+        { "@type": "Question", "name": "What is not included?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Taxes, prompt caching discounts, tool fees such as web search, image and audio tokens, regional or data residency surcharges and negotiated discounts are not included. Some providers bill thinking tokens as output, so include them in your output tokens." } }
+      ]
     }
-    </script>
-
-    <script src="https://cdn.tailwindcss.com"></script>
-
-    <!-- Layout Shield: Anti 390px Horizontal Overflow -->
-    <style id="layout-shield">
-        html, body {
-            max-width: 100% !important;
-            width: 100% !important;
-            overflow-x: hidden !important;
-        }
-        main, article, .container {
-            max-width: 100% !important;
-            box-sizing: border-box !important;
-        }
-        .manual-ad-box {
-            width: 100%;
-            max-width: 960px;
-            overflow: hidden;
-            margin: 12px auto;
-        }
-        .manual-ad-box ins {
-            max-width: 100% !important;
-            display: block;
-        }
-    </style>
-  <link rel="alternate" type="application/rss+xml" title="AI API Token Cost Calculator | OpenAI, Claude, Gemini" href="https://us-ai-api-cost.enjoy-onepage.com/rss.xml">
-  <link rel="sitemap" type="application/xml" href="https://us-ai-api-cost.enjoy-onepage.com/sitemap.xml">
+  ]
+}
+</script>
+<!-- ADSENSE START: loader -->
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2228289204702106" crossorigin="anonymous"></script>
+<!-- ADSENSE END: loader -->
+<style>
+:root{--bg:#f4f7fd;--card:#fff;--ink:#0f1f3d;--muted:#56637d;--accent:#1d4ed8;--line:#dfe6f3;--g:#15803d;--r:#b91c1c}
+*{box-sizing:border-box}
+html,body{margin:0;max-width:100%;overflow-x:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}
+.header{background:linear-gradient(135deg,#1e3a8a,#3b82f6);color:#fff;text-align:center;padding:26px 16px 22px}
+.header h1{margin:0;font-size:1.7rem}
+.header-sub{opacity:.92;margin-top:6px;font-size:.95rem}
+.wrap{max-width:1080px;margin:0 auto;padding:12px 14px 8px}
+.grid2{display:grid;grid-template-columns:1fr;gap:14px}
+@media (min-width:1024px){.grid2{grid-template-columns:1fr 1fr;align-items:start}.result{position:sticky;top:12px}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin:14px 0}
+.grid2 .card{margin:0}
+.card h2{font-size:1.15rem;margin:4px 0 10px}
+.card h3{font-size:1rem;margin:14px 0 6px}
+.lbl{display:block;font-weight:600;margin:10px 0 4px;font-size:.95rem}
+input[type=number],select,textarea{width:100%;font:inherit;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
+textarea{min-height:80px;resize:vertical}
+.row{display:flex;gap:10px;flex-wrap:wrap}
+.row>div{flex:1 1 150px;min-width:0}
+.chk{display:flex;align-items:center;gap:8px;margin:10px 0;font-size:.95rem}
+.hint{font-size:.86rem;color:var(--muted);margin:6px 0}
+.btn{font:inherit;border:1px solid var(--line);background:#fff;color:var(--ink);border-radius:10px;padding:9px 14px;cursor:pointer}
+.btn.sm{padding:4px 9px;font-size:.85rem;border-radius:8px}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.err{color:var(--r);font-weight:600;margin:8px 0 0}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:6px 0}
+.kpi{border:1px solid var(--line);border-radius:12px;padding:8px 10px}
+.kpi .v{font-size:1.3rem;font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.kpi .k{font-size:.82rem;color:var(--muted)}
+.kpi.big{grid-column:1 / -1;background:#eff4ff;border-color:#c7d7fb}
+.kpi.big .v{font-size:1.9rem}
+.note{font-size:.88rem;background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:6px 10px;margin:8px 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem;margin-top:6px}
+th,td{border-bottom:1px solid var(--line);padding:5px 6px;text-align:left;vertical-align:top}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+tr.sel td{background:#eff4ff;font-weight:700}
+.tscroll{overflow-x:auto}
+.notice{border-color:#fcd34d;background:#fffbeb}
+.faq-item h3{font-size:1rem;margin:12px 0 4px}
+.faq-item p{margin:0;color:#35425d}
+.src{font-size:.82rem;color:var(--muted)}
+.ad-box{max-width:1080px;margin:10px auto;padding:0 14px;background:transparent;overflow:hidden;text-align:center}
+.ad-top ins{max-height:90px}
+.footer{text-align:center;font-size:.85rem;color:var(--muted);padding:18px 14px 28px}
+.footer a{color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#0f1f3d;color:#fff;padding:10px 18px;border-radius:999px;font-size:.9rem;opacity:0;pointer-events:none;transition:opacity .2s;z-index:50;max-width:90vw}
+.toast.show{opacity:1}
+@media (prefers-reduced-motion: reduce){.toast{transition:none}}
+</style>
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body>
+<header class="header">
+  <h1>AI API Cost Calculator</h1>
+  <div class="header-sub">Cost per request, day, month and year · 12 models · prices checked Sep 30, 2026</div>
+</header>
 
-    <!-- Header -->
-    <header class="bg-white border-b border-slate-200 sticky top-0 z-40">
-        <div class="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
-            <a href="/" class="flex items-center gap-2 font-black text-slate-900 text-lg sm:text-xl tracking-tight">
-                <span class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center text-sm font-black shadow-sm">1P</span>
-                <span>AI Model API Cost Calculator</span>
-            </a>
-            <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-blue-50 text-blue-700 border border-blue-200">
-                2026 US Edition
-            </span>
-        </div>
-    </header>
+<!-- ADSENSE START: top -->
+<div class="ad-box ad-top">
+  <ins class="adsbygoogle" style="display:block;height:60px;max-height:90px" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3824727725" data-ad-format="horizontal" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: top -->
 
-    <!-- Main Workspace -->
-    <main class="max-w-6xl mx-auto px-4 py-6 flex-grow w-full">
-        <!-- Title Banner -->
-        <div class="mb-8 text-center max-w-2xl mx-auto">
-            <h1 class="text-2xl sm:text-3xl lg:text-4xl font-black text-slate-900 tracking-tight mb-2">AI Model API Cost Calculator</h1>
-            <p class="text-sm sm:text-base text-slate-600">Calculate and compare estimated API costs across GPT-4o, Claude 3.5 Sonnet, and Gemini 1.5 Pro based on prompt and completion token usage.</p>
-        </div>
-
-        <!-- 2-Column Gold Standard Layout -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <!-- Left: Input Form (6 cols) -->
-            <div class="lg:col-span-6 bg-white p-6 sm:p-8 rounded-2xl shadow-sm border border-slate-200">
-                <h2 class="text-base font-bold text-slate-900 mb-4 pb-2 border-b border-slate-100 flex items-center gap-2">
-                    <span class="w-2 h-2 rounded-full bg-blue-600"></span>
-                    <span>Input Parameters</span>
-                </h2>
-                
-        <div class="space-y-4">
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Primary Value / Amount ($)</label>
-                <div class="relative">
-                    <span class="absolute left-3 top-3 text-slate-400 font-bold">$</span>
-                    <input type="text" id="primaryVal" value="1,000" class="w-full pl-8 pr-4 py-3 bg-white border border-slate-300 rounded-xl font-semibold text-slate-800 text-base focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="1,000">
-                </div>
-            </div>
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Secondary Parameter / Multiplier</label>
-                <input type="number" id="secVal" value="12" min="1" class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl font-semibold text-slate-800 text-base focus:ring-2 focus:ring-blue-500 focus:outline-none">
-            </div>
-            <div>
-                <label class="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-1">Calculation Category</label>
-                <select id="calcCat" class="w-full px-4 py-3 bg-white border border-slate-300 rounded-xl font-semibold text-slate-800 text-base focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    <option value="standard">Standard US Model (Benchmark)</option>
-                    <option value="conservative">Conservative Estimate (-10%)</option>
-                    <option value="growth">Accelerated Target (+15%)</option>
-                </select>
-            </div>
-        </div>
-        
-                <button type="button" onclick="calculate()" class="mt-6 w-full py-3.5 bg-blue-600 hover:bg-blue-700 active:scale-[0.99] text-white font-black text-base rounded-xl shadow-md transition duration-150 cursor-pointer whitespace-nowrap">
-                    Calculate Now
-                </button>
-            </div>
-
-            <!-- Right: Results Card (6 cols sticky) -->
-            <div class="lg:col-span-6 lg:sticky lg:top-24">
-                <div id="resultCard" class="hidden">
-                    
-        <div class="bg-blue-600 text-white p-6 rounded-2xl shadow-md mb-6">
-            <p class="text-xs uppercase font-bold tracking-wider opacity-90 mb-1">Estimated Annual Result</p>
-            <h3 id="resPrimary" class="text-3xl sm:text-4xl font-black tracking-tight">$0</h3>
-            <p class="text-xs mt-2 opacity-80">Calculated under standard US benchmarking formulas</p>
-        </div>
-        <div class="space-y-3 text-sm text-slate-700 bg-white p-5 rounded-2xl border border-slate-200">
-            <div class="flex justify-between pb-2 border-b border-slate-100">
-                <span class="text-slate-500">Monthly Equivalent:</span>
-                <span id="resMonthly" class="font-bold text-slate-900">$0</span>
-            </div>
-            <div class="flex justify-between pt-1">
-                <span class="font-bold text-slate-900">Growth / Variance Index:</span>
-                <span id="resBenchmark" class="font-black text-blue-600">0%</span>
-            </div>
-        </div>
-        
-                    <div class="mt-4 flex gap-3">
-                        <button type="button" onclick="copyResults()" class="flex-1 py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm rounded-xl transition shadow-sm cursor-pointer whitespace-nowrap">
-                            Copy Results
-                        </button>
-                        <button type="button" onclick="resetForm()" class="px-5 py-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-sm rounded-xl transition cursor-pointer whitespace-nowrap">
-                            Reset
-                        </button>
-                    </div>
-                </div>
-                <!-- Initial Placeholder -->
-                <div id="placeholderCard" class="p-8 text-center border-2 border-dashed border-slate-200 rounded-2xl text-slate-400">
-                    <p class="text-sm font-semibold">Enter your inputs on the left and click "Calculate Now" to view full projections.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- E-E-A-T Editorial FAQ Accordion -->
-        <section class="mt-14 max-w-3xl mx-auto bg-white p-6 sm:p-8 rounded-2xl border border-slate-200">
-            <h2 class="text-lg sm:text-xl font-black text-slate-900 mb-4">Frequently Asked Questions</h2>
-            <div class="space-y-3">
-                
-    <!-- In-Depth Guidebook CTA Banner (4-1-4 Compliance) -->
-    <div class="mt-8 mb-8 p-6 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-2xl border border-indigo-100 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <div>
-        <span class="inline-block px-3 py-1 bg-indigo-600 text-white text-xs font-bold rounded-full mb-2">COMPLETE 2026 HANDBOOK</span>
-        <h3 class="text-lg font-bold text-gray-900">Want to master the statutory details? Read our in-depth guide</h3>
-        <p class="text-xs text-gray-600 mt-1">Explore official calculation formulas, edge-case exemptions, and strategic checklists.</p>
+<main class="wrap">
+  <div class="grid2">
+    <section class="card" id="calc" aria-labelledby="in-h">
+      <h2 id="in-h">1. Your usage</h2>
+      <label class="lbl" for="model">Model</label>
+      <select id="model"></select>
+      <div class="row" id="custom" hidden>
+        <div><label class="lbl" for="c-in">Input price (USD per 1M tokens)</label><input id="c-in" type="number" min="0" max="10000" step="0.01" inputmode="decimal"></div>
+        <div><label class="lbl" for="c-out">Output price (USD per 1M tokens)</label><input id="c-out" type="number" min="0" max="10000" step="0.01" inputmode="decimal"></div>
       </div>
-      <a href="/guides/guide.html" class="whitespace-nowrap px-5 py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-md transition flex items-center gap-2 text-xs shrink-0">
-        Read In-Depth Guide &rarr;
-      </a>
-    </div>
+      <p class="hint" id="price-line"></p>
+      <div class="row">
+        <div><label class="lbl" for="tin">Input tokens per request</label><input id="tin" type="number" min="0" max="10000000" step="1" value="1000" inputmode="numeric"></div>
+        <div><label class="lbl" for="tout">Output tokens per request</label><input id="tout" type="number" min="0" max="10000000" step="1" value="500" inputmode="numeric"></div>
+      </div>
+      <div class="row">
+        <div><label class="lbl" for="rpd">Requests per day</label><input id="rpd" type="number" min="0" max="100000000" step="1" value="100" inputmode="numeric"></div>
+        <div><label class="lbl" for="dpm">Days per month</label><input id="dpm" type="number" min="1" max="31" step="1" value="30" inputmode="numeric"></div>
+      </div>
+      <label class="chk"><input type="checkbox" id="batch"> Use the Batch API (50% off input and output, for requests that can wait)</label>
+      <p class="err" id="err" role="alert" hidden></p>
+      <h3>Estimate tokens from text</h3>
+      <label class="lbl" for="sample">Paste a sample prompt or reply</label>
+      <textarea id="sample" autocomplete="off" placeholder="Paste text here to estimate its tokens. It is not saved or sent."></textarea>
+      <p class="hint" id="est" aria-live="polite"></p>
+      <div class="actions" style="margin-top:4px">
+        <button type="button" class="btn sm" id="btn-use-in" disabled>Use as input tokens</button>
+        <button type="button" class="btn sm" id="btn-use-out" disabled>Use as output tokens</button>
+      </div>
+    </section>
 
-    <details class="group border border-slate-200 rounded-xl p-4 transition">
-                    <summary class="font-bold text-slate-800 text-sm cursor-pointer flex justify-between items-center select-none">
-                        <span>How accurate are these calculations?</span>
-                        <span class="text-blue-600 font-bold group-open:rotate-180 transition-transform">▼</span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Calculations use 2026 statutory formulas and verified standard economic models. While highly accurate for benchmarking, always consult a certified professional for individual legal or financial filings.
-                    </p>
-                </details>
-                <details class="group border border-slate-200 rounded-xl p-4 transition">
-                    <summary class="font-bold text-slate-800 text-sm cursor-pointer flex justify-between items-center select-none">
-                        <span>Is my personal or financial data stored?</span>
-                        <span class="text-blue-600 font-bold group-open:rotate-180 transition-transform">▼</span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        No. 100% of the computations occur locally in your browser's JavaScript engine. Zero personal or financial data is transmitted to or saved on external servers.
-                    </p>
-                </details>
-                <details class="group border border-slate-200 rounded-xl p-4 transition">
-                    <summary class="font-bold text-slate-800 text-sm cursor-pointer flex justify-between items-center select-none">
-                        <span>Can I export or share my calculation results?</span>
-                        <span class="text-blue-600 font-bold group-open:rotate-180 transition-transform">▼</span>
-                    </summary>
-                    <p class="mt-3 text-xs sm:text-sm text-slate-600 leading-relaxed">
-                        Yes! Click the "Copy Results" button to copy a formatted summary with a link directly to your clipboard for sharing via Slack, email, or messaging apps.
-                    </p>
-                </details>
-            </div>
-        </section>
-    </main>
+    <section class="card result" aria-labelledby="out-h">
+      <h2 id="out-h">2. Estimated cost</h2>
+      <p class="hint" id="r-model"></p>
+      <div class="kpis">
+        <div class="kpi big"><div class="v" id="r-month">$0.00</div><div class="k">per month</div></div>
+        <div class="kpi"><div class="v" id="r-req">$0.00</div><div class="k">per request</div></div>
+        <div class="kpi"><div class="v" id="r-day">$0.00</div><div class="k">per day</div></div>
+        <div class="kpi"><div class="v" id="r-year">$0.00</div><div class="k">per year (12 months)</div></div>
+        <div class="kpi"><div class="v" id="r-split">$0 + $0</div><div class="k">input + output per request</div></div>
+      </div>
+      <div id="notes"></div>
+      <div class="actions">
+        <button type="button" class="btn" id="btn-copy">📋 Copy</button>
+        <button type="button" class="btn" id="btn-share">📤 Share</button>
+      </div>
+      <h3>Same usage on every model (per month)</h3>
+      <div class="tscroll"><table aria-describedby="out-h"><thead><tr><th scope="col">Model</th><th scope="col" class="n">In / Out per 1M</th><th scope="col" class="n">Per month</th></tr></thead><tbody id="cmp"></tbody></table></div>
+    </section>
+  </div>
 
-    <!-- Floating Toast Notification -->
-    <div id="toastNotification" class="fixed bottom-6 left-1/2 transform -translate-x-1/2 bg-slate-900 text-white px-5 py-2.5 rounded-full text-xs font-bold shadow-2xl opacity-0 pointer-events-none transition-opacity duration-200 z-50">
-        Copied to clipboard!
-    </div>
+<!-- ADSENSE START: mid (right after the result card) -->
+<div class="ad-box ad-mid">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="1186914926" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: mid -->
 
-    <!-- Modern Trust Footer -->
-    <footer class="bg-white border-t border-slate-200 py-8 text-center text-xs text-slate-500 mt-12">
-        <div class="max-w-6xl mx-auto px-4 space-y-3">
-            <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 font-semibold text-slate-600">
-                <a href="/terms.html" class="hover:text-blue-600 transition">Terms of Service</a>
-                <span class="text-slate-300">|</span>
-                <a href="/privacy.html" class="hover:text-blue-600 transition">Privacy Policy</a>
-                <span class="text-slate-300">|</span>
-                <a href="/disclaimer.html" class="hover:text-blue-600 transition">Disclaimer</a>
-            </div>
-            <p class="max-w-xl mx-auto text-slate-400">
-                This tool is provided for educational and estimation purposes only. All calculations run client-side.
-            </p>
-            <p>&copy; 2026 AI Model API Cost Calculator. All rights reserved.</p>
-        </div>
-    </footer>
+  <section class="card" aria-labelledby="how-h">
+    <h2 id="how-h">🧮 How the estimate works</h2>
+    <ul>
+      <li><strong>Per request:</strong> input tokens ÷ 1,000,000 × input price + output tokens ÷ 1,000,000 × output price. Example: 1,000 input and 500 output tokens at $2 and $10 per 1M tokens cost $0.002 + $0.005 = $0.007.</li>
+      <li><strong>Per day, month and year:</strong> per request × requests per day, then × days per month, then × 12.</li>
+      <li><strong>Batch:</strong> all three providers list their Batch API at 50% off both input and output for these models.</li>
+      <li><strong>Long prompts:</strong> the GPT-6 models here charge their long-context prices when a request has more than 272,000 input tokens, and Gemini 3.1 Pro Preview when a prompt has more than 200,000 tokens. The Claude models here keep the same price across their context window.</li>
+      <li><strong>Price changes:</strong> Google lists a higher Gemini 3.8 Flash price starting January 1, 2027. The calculator uses the price for today’s date and shows what the change means for you.</li>
+    </ul>
+    <h3>Built-in prices (standard, USD per 1M tokens)</h3>
+    <div class="tscroll"><table><thead><tr><th scope="col">Model</th><th scope="col" class="n">Input</th><th scope="col" class="n">Output</th><th scope="col">Notes</th></tr></thead><tbody id="ptable"></tbody></table></div>
+    <p class="src">Sources, checked September 30, 2026: OpenAI API pricing (platform.openai.com/docs/pricing); Anthropic Claude API pricing (docs.claude.com, About Claude, Pricing); Google Gemini Developer API pricing, paid tier (ai.google.dev/gemini-api/docs/pricing, last updated September 24, 2026). Token rule of thumb: Anthropic pricing FAQ. Product names are trademarks of their owners; this page is not affiliated with any provider.</p>
+  </section>
 
-    <!-- Logic Script -->
-    <script>
-        
-        function calculate() {
-            const prim = parseFloat(document.getElementById('primaryVal').value.replace(/,/g, '')) || 0;
-            const sec = parseFloat(document.getElementById('secVal').value) || 1;
-            const cat = document.getElementById('calcCat').value;
-            
-            let mult = 1.0;
-            if (cat === 'conservative') mult = 0.90;
-            if (cat === 'growth') mult = 1.15;
-            
-            const total = prim * sec * mult;
-            const monthly = total / 12;
-            const rate = ((total / (prim || 1)) * 10).toFixed(1);
-            
-            document.getElementById('resPrimary').textContent = '$' + Math.round(total).toLocaleString('en-US');
-            document.getElementById('resMonthly').textContent = '$' + Math.round(monthly).toLocaleString('en-US');
-            document.getElementById('resBenchmark').textContent = rate + '%';
-            
-            document.getElementById('resultCard').classList.remove('hidden');
-        }
-        
+  <section class="card" id="faq" aria-labelledby="faq-h">
+    <h2 id="faq-h">❓ Frequently asked questions</h2>
+    <div class="faq-item"><h3>How is the cost calculated?</h3><p>Cost per request equals input tokens divided by 1,000,000 times the input price, plus output tokens divided by 1,000,000 times the output price. The daily cost is that times your requests per day, the monthly cost is the daily cost times your days per month, and the yearly cost is 12 months. Batch halves both prices.</p></div>
+    <div class="faq-item"><h3>How current are the prices?</h3><p>The built-in prices were checked on each provider's official pricing page on September 30, 2026, using standard pay-as-you-go rates in US dollars. Prices change often, so confirm them before you budget, or enter your own prices with Custom prices.</p></div>
+    <div class="faq-item"><h3>How many tokens is my text?</h3><p>A common rule of thumb for English is about 4 characters or 0.75 words per token. Paste sample text into the estimator to apply that rule. Each model family counts tokens differently; Anthropic notes that Claude 4.7 and later models produce about 30% more tokens for the same text.</p></div>
+    <div class="faq-item"><h3>What are long-context prices?</h3><p>Some models charge more when a single request has a very long input. The GPT-6 models listed here use higher prices above 272,000 input tokens, and Gemini 3.1 Pro Preview above 200,000. The calculator switches to those prices when your input tokens per request pass the limit.</p></div>
+    <div class="faq-item"><h3>What is not included?</h3><p>Taxes, prompt caching discounts, tool fees such as web search, image and audio tokens, regional or data residency surcharges and negotiated discounts are not included. Some providers bill thinking tokens as output, so include them in your output tokens.</p></div>
+  </section>
 
-        function copyResults() {
-            const resCard = document.getElementById('resultCard');
-            const lines = [];
-            lines.push("AI Model API Cost Calculator - Calculation Summary");
-            lines.push("=============================");
-            resCard.querySelectorAll('.flex.justify-between').forEach(el => {
-                const k = el.querySelector('span:first-child')?.innerText || '';
-                const v = el.querySelector('span:last-child')?.innerText || '';
-                if (k && v) lines.push(k + ' ' + v);
-            });
-            lines.push("-----------------------------");
-            lines.push("👉 Try it here: https://us-ai-api-cost.enjoy-onepage.com/");
-            
-            const textToCopy = lines.join('\n');
-            if (navigator.clipboard) {
-                navigator.clipboard.writeText(textToCopy).then(() => showToast());
-            } else {
-                const ta = document.createElement('textarea');
-                ta.value = textToCopy;
-                document.body.appendChild(ta);
-                ta.select();
-                document.execCommand('copy');
-                document.body.removeChild(ta);
-                showToast();
-            }
-        }
+  <section class="card notice" aria-labelledby="note-h">
+    <h2 id="note-h">⚠️ Please note</h2>
+    <p>These are estimates, not quotes or bills. Actual charges depend on the exact tokens counted by each provider, your account, region and features used, and prices can change at any time. Check the provider’s current pricing page before making budget decisions.</p>
+  </section>
+</main>
 
-        function showToast() {
-            const t = document.getElementById('toastNotification');
-            t.classList.remove('opacity-0', 'pointer-events-none');
-            setTimeout(() => {
-                t.classList.add('opacity-0', 'pointer-events-none');
-            }, 2200);
-        }
+<!-- ADSENSE START: bottom -->
+<div class="ad-box ad-bottom">
+  <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-2228289204702106" data-ad-slot="3416334507" data-ad-format="auto" data-full-width-responsive="true"></ins>
+  <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+</div>
+<!-- ADSENSE END: bottom -->
 
-        function resetForm() {
-            document.getElementById('resultCard').classList.add('hidden');
-            document.getElementById('placeholderCard').classList.remove('hidden');
-        }
+<footer class="footer">
+  <p>A free AI API cost calculator. Nothing you enter is saved or sent to us.</p>
+  <p><a href="/disclaimer.html">Disclaimer</a> | <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a></p>
+</footer>
 
-        // Auto calculate on load
-        window.addEventListener('DOMContentLoaded', () => {
-            calculate();
-            document.getElementById('placeholderCard').classList.add('hidden');
-        });
-    </script>
+<div id="global-ux-toast" class="toast" role="status" aria-live="polite"></div>
+
+<!-- LOGIC START -->
+<script>
+(function () {
+  'use strict';
+  var SITE = 'https://us-ai-api-cost.enjoy-onepage.com';
+  var TOOL_NAME = 'AI API Cost Calculator';
+  var CHECKED = 'Sep 30, 2026';
+  /* Official standard prices, USD per 1M tokens, checked 2026-09-30 (see the sources under the price table) */
+  var MODELS = [
+    { id: 'gpt-6-astra', v: 'OpenAI', n: 'GPT-6 Astra', i: 10.00, o: 50.00, lo: 272000, li: 20.00, lx: 75.00 },
+    { id: 'gpt-6.1-sol', v: 'OpenAI', n: 'GPT-6.1 Sol', i: 2.00, o: 10.00, lo: 272000, li: 4.00, lx: 15.00 },
+    { id: 'gpt-6-luna', v: 'OpenAI', n: 'GPT-6 Luna', i: 0.10, o: 0.50, lo: 272000, li: 0.20, lx: 0.75 },
+    { id: 'gpt-5.4-mini', v: 'OpenAI', n: 'GPT-5.4 mini', i: 0.75, o: 4.50 },
+    { id: 'claude-fable-5.1', v: 'Anthropic', n: 'Claude Fable 5.1', i: 10.00, o: 50.00 },
+    { id: 'claude-opus-5.5', v: 'Anthropic', n: 'Claude Opus 5.5', i: 4.00, o: 20.00 },
+    { id: 'claude-sonnet-5.5', v: 'Anthropic', n: 'Claude Sonnet 5.5', i: 2.00, o: 10.00 },
+    { id: 'claude-haiku-4.5', v: 'Anthropic', n: 'Claude Haiku 4.5', i: 1.00, o: 5.00 },
+    { id: 'gemini-3.1-pro-preview', v: 'Google', n: 'Gemini 3.1 Pro Preview', i: 2.00, o: 12.00, lo: 200000, li: 4.00, lx: 18.00 },
+    { id: 'gemini-3.8-flash', v: 'Google', n: 'Gemini 3.8 Flash', i: 0.75, o: 3.75, ch: { from: '2027-01-01', label: 'January 1, 2027', i: 1.50, o: 7.50 } },
+    { id: 'gemini-3.5-flash-lite', v: 'Google', n: 'Gemini 3.5 Flash-Lite', i: 0.30, o: 2.50 },
+    { id: 'gemini-2.5-flash-lite', v: 'Google', n: 'Gemini 2.5 Flash-Lite', i: 0.10, o: 0.40 }
+  ];
+  var LIM = { tin: [0, 10000000], tout: [0, 10000000], rpd: [0, 100000000], dpm: [1, 31], price: [0, 10000] };
+
+  function $(id) { return document.getElementById(id); }
+  function on(id, ev, fn) { var el = $(id); if (el) el.addEventListener(ev, fn); }
+  function setText(id, t) { var el = $(id); if (el) el.textContent = t; }
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function fmtInt(n) { return n.toLocaleString('en-US'); }
+  function price(p) { return '$' + (Math.round(p * 1000) / 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 3 }); }
+  function money(x) {
+    if (!x) return '$0.00';
+    if (x < 0.01) return '$' + x.toPrecision(3);
+    return '$' + x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+  function todayKey() { var d = new Date(); return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate()); }
+  function byId(id) { for (var k = 0; k < MODELS.length; k++) if (MODELS[k].id === id) return MODELS[k]; return null; }
+
+  /* ---------- price rules: today's price (scheduled changes), long-context tier, batch ---------- */
+  function ratesFor(m, tin, batch, day) {
+    var i = m.i, o = m.o, long = false, changed = false;
+    if (m.ch && day >= m.ch.from) { i = m.ch.i; o = m.ch.o; changed = true; }
+    if (m.lo && tin > m.lo) { i = m.li; o = m.lx; long = true; }
+    if (batch) { i /= 2; o /= 2; }
+    return { i: i, o: o, long: long, changed: changed };
+  }
+  function costs(r, u) {
+    var inC = u.tin / 1e6 * r.i, outC = u.tout / 1e6 * r.o, req = inC + outC, day = req * u.rpd, month = day * u.dpm;
+    return { inC: inC, outC: outC, req: req, day: day, month: month, year: month * 12 };
+  }
+
+  /* ---------- inputs (validated; the last valid value is kept while a field is being edited) ---------- */
+  var U = { m: 'claude-sonnet-5.5', tin: 1000, tout: 500, rpd: 100, dpm: 30, batch: false, ci: 2, co: 10 };
+  function num(id, lim, isInt) {
+    var raw = ($(id) ? $(id).value : '').trim();
+    if (raw === '') return { ok: false };
+    var v = Number(raw);
+    if (!isFinite(v) || v < lim[0] || v > lim[1] || (isInt && !Number.isInteger(v))) return { ok: false };
+    return { ok: true, v: v };
+  }
+  var LABEL = { tin: 'Input tokens', tout: 'Output tokens', rpd: 'Requests per day', dpm: 'Days per month', 'c-in': 'Input price', 'c-out': 'Output price' };
+  function read() {
+    var errs = [];
+    [['tin', LIM.tin, true], ['tout', LIM.tout, true], ['rpd', LIM.rpd, true], ['dpm', LIM.dpm, true]].forEach(function (f) {
+      var r = num(f[0], f[1], f[2]);
+      if (r.ok) U[f[0]] = r.v; else errs.push(LABEL[f[0]] + ' must be a whole number from ' + fmtInt(f[1][0]) + ' to ' + fmtInt(f[1][1]) + '.');
+    });
+    if (U.m === 'custom') {
+      [['c-in', 'ci'], ['c-out', 'co']].forEach(function (f) {
+        var r = num(f[0], LIM.price, false);
+        if (r.ok) U[f[1]] = r.v; else errs.push(LABEL[f[0]] + ' must be from $0 to $10,000 per 1M tokens.');
+      });
+    }
+    U.batch = !!($('batch') && $('batch').checked);
+    var e = $('err'); if (e) { e.textContent = errs.join(' '); e.hidden = !errs.length; }
+  }
+  function current() { return U.m === 'custom' ? { id: 'custom', v: '', n: 'Custom prices', i: U.ci, o: U.co } : byId(U.m); }
+
+  /* ---------- rendering ---------- */
+  function buildSelects() {
+    var s = $('model'); if (!s) return;
+    ['OpenAI', 'Anthropic', 'Google'].forEach(function (v) {
+      var g = document.createElement('optgroup'); g.label = v;
+      MODELS.filter(function (m) { return m.v === v; }).forEach(function (m) { var o = el('option', '', m.n); o.value = m.id; g.appendChild(o); });
+      s.appendChild(g);
+    });
+    var c = el('option', '', 'Custom prices…'); c.value = 'custom'; s.appendChild(c);
+    var pt = $('ptable');
+    if (pt) MODELS.forEach(function (m) {
+      var tr = el('tr'), note = [];
+      if (m.lo) note.push('Over ' + fmtInt(m.lo) + ' input tokens per request: ' + price(m.li) + ' / ' + price(m.lx) + '.');
+      if (m.ch) note.push('From ' + m.ch.label + ': ' + price(m.ch.i) + ' / ' + price(m.ch.o) + '.');
+      tr.appendChild(el('td', '', m.v + ' ' + m.n)); tr.appendChild(el('td', 'n', price(m.i))); tr.appendChild(el('td', 'n', price(m.o))); tr.appendChild(el('td', '', note.join(' ')));
+      pt.appendChild(tr);
+    });
+  }
+  var LAST = null;
+  function render() {
+    read();
+    var day = todayKey(), m = current(), r = ratesFor(m, U.tin, U.batch, day), c = costs(r, U);
+    var cu = $('custom'); if (cu) cu.hidden = U.m !== 'custom';
+    setText('price-line', (m.id === 'custom' ? 'Your prices: ' : m.v + ' ' + m.n + ': ') + price(r.i) + ' input · ' + price(r.o) + ' output per 1M tokens' +
+      (U.batch ? ' (Batch, 50% off)' : '') + (m.id === 'custom' ? '.' : ' · checked ' + CHECKED + '.'));
+    setText('r-model', (m.id === 'custom' ? 'Custom prices' : m.v + ' ' + m.n) + ' · ' + fmtInt(U.tin) + ' in + ' + fmtInt(U.tout) + ' out tokens × ' + fmtInt(U.rpd) + ' requests/day × ' + U.dpm + ' days/month');
+    setText('r-req', money(c.req)); setText('r-day', money(c.day)); setText('r-month', money(c.month)); setText('r-year', money(c.year));
+    setText('r-split', money(c.inC) + ' + ' + money(c.outC));
+    var notes = $('notes');
+    if (notes) {
+      notes.innerHTML = '';
+      if (r.long) notes.appendChild(el('p', 'note', 'Long-context prices apply: each request has more than ' + fmtInt(m.lo) + ' input tokens.'));
+      if (m.ch && !r.changed) {
+        var r2 = ratesFor(m, U.tin, U.batch, m.ch.from), c2 = costs(r2, U);
+        notes.appendChild(el('p', 'note', 'Google lists higher prices for ' + m.n + ' from ' + m.ch.label + ': ' + price(m.ch.i) + ' / ' + price(m.ch.o) + '. At those prices this usage would cost ' + money(c2.month) + ' per month.'));
+      }
+      if (m.ch && r.changed) notes.appendChild(el('p', 'note', 'Using the price that started ' + m.ch.label + '.'));
+    }
+    var rows = MODELS.map(function (x) { var rx = ratesFor(x, U.tin, U.batch, day); return { m: x, r: rx, c: costs(rx, U) }; });
+    if (U.m === 'custom') rows.push({ m: m, r: r, c: c });
+    rows.sort(function (a, b) { return a.c.month - b.c.month || a.m.n.localeCompare(b.m.n); });
+    var tb = $('cmp');
+    if (tb) {
+      tb.innerHTML = '';
+      rows.forEach(function (x) {
+        var tr = el('tr', x.m.id === m.id ? 'sel' : '');
+        tr.setAttribute('data-id', x.m.id);
+        tr.appendChild(el('td', '', (x.m.v ? x.m.v + ' ' : '') + x.m.n + (x.r.long ? ' (long)' : '')));
+        tr.appendChild(el('td', 'n', price(x.r.i) + ' / ' + price(x.r.o)));
+        tr.appendChild(el('td', 'n', money(x.c.month)));
+        tb.appendChild(tr);
+      });
+    }
+    LAST = { m: m, c: c };
+  }
+
+  /* ---------- token estimate: about 4 characters per token (rule of thumb for English) ---------- */
+  var estTokens = 0;
+  function renderEst() {
+    var t = $('sample') ? $('sample').value : '', chars = Array.from(t).length;
+    estTokens = chars ? Math.max(1, Math.round(chars / 4)) : 0;
+    setText('est', chars ? fmtInt(chars) + (chars === 1 ? ' character ≈ ' : ' characters ≈ ') + fmtInt(estTokens) + (estTokens === 1 ? ' token' : ' tokens') + ' (characters ÷ 4, a rule of thumb for English; your model may count differently).' : 'Paste text to estimate its tokens.');
+    ['btn-use-in', 'btn-use-out'].forEach(function (id) { var b = $(id); if (b) b.disabled = !estTokens || estTokens > LIM.tin[1]; });
+  }
+
+  /* ---------- toast · copy · share (standard: Web Share -> clipboard -> honest message on failure) ---------- */
+  var toastTimer = null;
+  function showToastNotification(msg) {
+    var t = $('global-ux-toast'); if (!t) return;
+    t.textContent = msg; t.classList.add('show');
+    clearTimeout(toastTimer); toastTimer = setTimeout(function () { t.classList.remove('show'); }, 2200);
+  }
+  function fallbackCopy(text) {
+    var ta = document.createElement('textarea'); ta.value = text; ta.setAttribute('readonly', '');
+    ta.style.position = 'fixed'; ta.style.opacity = '0'; document.body.appendChild(ta); ta.select();
+    var ok = false; try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    showToastNotification(ok ? 'Copied! Paste it anywhere to share.' : 'Could not copy. Please select the text and copy it yourself.');
+  }
+  function copyText(text) {
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(function () { showToastNotification('Copied! Paste it anywhere to share.'); }, function () { fallbackCopy(text); });
+    } else { fallbackCopy(text); }
+  }
+  function link() {
+    var q = new URLSearchParams();
+    q.set('m', U.m); q.set('in', String(U.tin)); q.set('out', String(U.tout)); q.set('rpd', String(U.rpd)); q.set('dpm', String(U.dpm));
+    if (U.batch) q.set('batch', '1');
+    if (U.m === 'custom') { q.set('cin', String(U.ci)); q.set('cout', String(U.co)); }
+    return SITE + '/?' + q.toString();
+  }
+  function summary() {
+    if (!LAST) return '';
+    var name = LAST.m.id === 'custom' ? 'Custom prices (' + price(U.ci) + ' / ' + price(U.co) + ' per 1M)' : LAST.m.n;
+    return '🧮 AI API cost: ' + name + (U.batch ? ' (Batch)' : '') + ' · ' + fmtInt(U.tin) + ' in + ' + fmtInt(U.tout) + ' out tokens × ' + fmtInt(U.rpd) + ' requests/day ≈ ' + money(LAST.c.month) + '/month' +
+      (LAST.m.id === 'custom' ? '' : ' (prices checked ' + CHECKED + ')') + '.\n👉 ' + TOOL_NAME + ': ' + link();
+  }
+
+  /* ---------- events ---------- */
+  on('calc', 'input', function (e) { if (e.target && e.target.id === 'sample') { renderEst(); return; } render(); });
+  on('calc', 'change', function (e) {
+    if (e.target && e.target.id === 'model') {
+      U.m = e.target.value;
+      if (U.m === 'custom') { if ($('c-in') && !$('c-in').value) $('c-in').value = String(U.ci); if ($('c-out') && !$('c-out').value) $('c-out').value = String(U.co); }
+    }
+    render();
+  });
+  on('btn-use-in', 'click', function () { if (estTokens) { $('tin').value = String(estTokens); render(); showToastNotification('Input tokens set to ' + fmtInt(estTokens) + '.'); } });
+  on('btn-use-out', 'click', function () { if (estTokens) { $('tout').value = String(estTokens); render(); showToastNotification('Output tokens set to ' + fmtInt(estTokens) + '.'); } });
+  on('btn-copy', 'click', function () { var t = summary(); if (t) copyText(t); });
+  on('btn-share', 'click', function () {
+    var text = summary(); if (!text) return;
+    if (navigator.share) { navigator.share({ title: TOOL_NAME, text: text, url: link() }).catch(function (e) { if (!e || e.name !== 'AbortError') copyText(text); }); }
+    else { copyText(text); }
+  });
+
+  /* ---------- start: link values (?m=…&in=…&out=…&rpd=…&dpm=…&batch=1&cin=…&cout=…) ---------- */
+  (function init() {
+    buildSelects();
+    var q; try { q = new URLSearchParams(location.search); } catch (e) { q = null; }
+    var ok = function (v, lim, isInt) { if (v === null || v.trim() === '') return null; var n = Number(v); return isFinite(n) && n >= lim[0] && n <= lim[1] && (!isInt || Number.isInteger(n)) ? n : null; };
+    if (q) {
+      var m = q.get('m');
+      if (m === 'custom' || byId(m)) U.m = m;
+      var v;
+      if ((v = ok(q.get('in'), LIM.tin, true)) !== null) U.tin = v;
+      if ((v = ok(q.get('out'), LIM.tout, true)) !== null) U.tout = v;
+      if ((v = ok(q.get('rpd'), LIM.rpd, true)) !== null) U.rpd = v;
+      if ((v = ok(q.get('dpm'), LIM.dpm, true)) !== null) U.dpm = v;
+      if ((v = ok(q.get('cin'), LIM.price, false)) !== null) U.ci = v;
+      if ((v = ok(q.get('cout'), LIM.price, false)) !== null) U.co = v;
+      U.batch = q.get('batch') === '1';
+    }
+    $('model').value = U.m; $('tin').value = String(U.tin); $('tout').value = String(U.tout); $('rpd').value = String(U.rpd); $('dpm').value = String(U.dpm);
+    $('c-in').value = String(U.ci); $('c-out').value = String(U.co); $('batch').checked = U.batch;
+    render(); renderEst();
+  })();
+})();
+</script>
+<!-- LOGIC END -->
 </body>
 </html>
