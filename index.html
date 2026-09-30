@@ -258,7 +258,8 @@ tr.sel td{background:#eff4ff;font-weight:700}
   function price(p) { return '$' + (Math.round(p * 1000) / 1000).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 3 }); }
   function money(x) {
     if (!x) return '$0.00';
-    if (x < 0.01) return '$' + x.toPrecision(3);
+    /* Intl, not toPrecision: toPrecision switches to exponent form ("5.00e-7") below one millionth of a dollar */
+    if (x < 0.01) return '$' + x.toLocaleString('en-US', { minimumSignificantDigits: 3, maximumSignificantDigits: 3 });
     return '$' + x.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
   }
   function pad2(n) { return (n < 10 ? '0' : '') + n; }
